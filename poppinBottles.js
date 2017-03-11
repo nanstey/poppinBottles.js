@@ -1,22 +1,22 @@
-function calcBottlesPurchase(dollars){
-  return Math.floor( dollars / 2 );
-}
-
-function calcEmptyBottleReturn(empties){
-  return Math.floor( empties / 2 );
-}
-
-function calcBottleCapReturn(caps){
-  return Math.floor( caps / 4 );
+function calcAmount(num, denom){
+  var tmp = { amount:0, remainder:0};
+  tmp.amount = Math.floor( num / denom);
+  tmp.remainder = num % denom;
+  return tmp;
 }
 
 function returnOnInvestment(dollars){
-  var bottles = calcBottlesPurchase(dollars);
-  var emptyReturn = calcEmptyBottleReturn(bottles);
-  var capReturn = calcBottleCapReturn(bottles);
-  console.log('With $' + dollars + ' you can buy ' + bottles + ' bottles.');
-  console.log(bottles + ' empty bottles will get you ' + emptyReturn + ' free bottles.');
-  console.log(bottles + ' bottle caps will get you ' + capReturn + ' free bottles.');
+  var bottles = calcAmount(dollars, 2);
+  var emptyReturn = calcAmount(bottles.amount, 2);
+  var capReturn = calcAmount(bottles.amount, 4);
+  var total = bottles.amount + emptyReturn.amount + capReturn.amount;
+
+  console.log('');
+  console.log('With $' + dollars + ' you can get ' + total + ' bottles.');
+  console.log(bottles.amount + ' bottles purchased,');
+  console.log(emptyReturn.amount + ' free bottles from empties, &');
+  console.log(capReturn.amount + ' free bottles from bottle caps.');
+  console.log('You will have $' + bottles.remainder + ' , ' + emptyReturn.remainder + ' empty(s), & ' + capReturn.remainder + ' bottle cap(s) remaining.');
 }
 
 var dollars = process.argv[2];
